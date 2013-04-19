@@ -17,12 +17,13 @@ class Outputter : public QDialog
 public:
     explicit Outputter(QWidget *parent = 0);
     ~Outputter();
-    void sum(int x,int y);
+   // void sum(int x,int y);
     void addGraph(std::pair<QVector<double>,QVector<double> > _graph, int tabNumber,QColor color);
     void addGraph(QVector<double> x,QVector<double>  y,int tabNumber,QColor color);
+    void addGraph(double* x, double* y, int numberOfElements, int tabNumber, QColor color);
     void view();
     void printf(QString string);
-    void draw();
+    //void draw();
     Ui::Outputter *ui;
     QVector<std::pair< std::pair <QVector <double> ,QVector <double> >,std::pair<int,QColor> > > graphs;
     int numberOfTabs;

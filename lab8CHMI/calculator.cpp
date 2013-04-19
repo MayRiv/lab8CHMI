@@ -2,6 +2,10 @@
 #include "ui_calculator.h"
 #include <math.h>
 #include <stdio.h>
+#include <iostream>
+#include <QDebug>
+#include <QFile>
+using namespace std;
 /*Calculator::Calculator(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Calculator)
@@ -33,17 +37,34 @@ void Calculator::calculate()
     QVector<double> C=getC(x);
     h=(1.0-0.0)/(4*n+1);
     double argument=0;
+    QFile file("out.txt");
+    file.open(QIODevice::Append | QIODevice::Text);
+    QTextStream out(&file);
+
+
     for (int i=0;i<4*n+1+1;i++)
     {
 
         double yApproximate=0;
         for (int i=0;i<C.size();i++) yApproximate+=C[i]*baseFunction(i+1,argument);
-        printf("%lf yApp=%lf  yAcc=%lf\n",(yApproximate-getAccurateValue(argument))/(yApproximate)*100,yApproximate,getAccurateValue(argument));
+        //printf("%lf yApp=%lf  yAcc=%lf\n",(yApproximate-getAccurateValue(argument))/(yApproximate)*100,yApproximate,getAccurateValue(argument));
+        //std::cout << "xyy";
+        out <<"x= "<< argument<<" yt ="<< getAccurateValue(argument)<<" yp= "<<yApproximate<<" abs= "<<getAccurateValue(argument)-yApproximate<<" otn"<<(getAccurateValue(argument)-yApproximate)/yApproximate*100 <<"\n";
+        qDebug()<<"x= "<< argument<<"yt ="<< getAccurateValue(argument)<<"yp= "<<yApproximate<<"abs= "<<getAccurateValue(argument)-yApproximate<<"otn"<<(getAccurateValue(argument)-yApproximate)/yApproximate*100;
         arguments.push_back(argument);
         values.push_back(yApproximate);
         accurate.push_back(getAccurateValue(argument));
         argument+=h;
     }
+    double yApproximate=0;
+    for (int i=0;i<C.size();i++) yApproximate+=C[i]*baseFunction(i+1,0.5);
+
+    qDebug()<<"pri x=0.5 "<<"yt ="<< getAccurateValue(0.5)<<"yp= "<<yApproximate<<"abs= "<<getAccurateValue(0.5)-yApproximate<<"otn"<<(getAccurateValue(0.5)-yApproximate)/yApproximate*100;
+    qDebug() << " ";
+    qDebug() << " ";
+    qDebug() << " ";
+    out << "     \n\n\n";
+    file.close();
 }
 
 double Calculator::baseFunction(int j, double x)
@@ -234,6 +255,13 @@ QVector<double> Calculator::getC(QVector<double> x)
 
     for (int i=0;i<x.size();i++) B[i]=rightPartFunction(x[i]);
     QVector<double> C= solveGauss(A,B);
+    foreach(double coeff, C)
+    {
+        qDebug() << coeff;
+    }
+    qDebug() << " ";
+    qDebug() << " ";
+    qDebug() << " ";
     return C;
 }
 double Calculator::getAccurateValue(double x)

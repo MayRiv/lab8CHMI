@@ -34,8 +34,19 @@ void Outputter::addGraph(QVector<double> x,QVector<double>  y,int tabNumber, QCo
       ui->tabWidget->addTab(plots.back(),"Graph");
       numberOfTabs++;
     }
+}
+void Outputter::addGraph(double* x, double* y, int numberOfElements, int tabNumber, QColor color)
+{
+    QVector<double> xMas(numberOfElements);
 
+    QVector<double> yMas(numberOfElements);
 
+    for (int i=0;i<numberOfElements;i++)
+    {
+        xMas[i]=x[i];
+        yMas[i]=y[i];
+    }
+    addGraph(xMas,yMas,tabNumber,color);
 }
 void Outputter::printf(QString string)
 {
@@ -56,12 +67,7 @@ void Outputter::view()
         functions[i]->setData(graphs[i].first.first,graphs[i].first.second);
         functions[i]->attach(plots[graphs[i].second.first-1]);
     }
-    /*QwtPlotCurve* functions=new QwtPlotCurve;
-    functions->setRenderHint(QwtPlotItem::RenderAntialiased);
-    QPen pen(graphs[0].second.second);
-    functions->setPen(pen);
-    functions->setData(graphs[0].first.first,graphs[0].first.second);
-    functions->attach(plots[graphs[0].second.first-1]);*/
+
     foreach(QwtPlot* plot,plots)
     {
         plot->replot();

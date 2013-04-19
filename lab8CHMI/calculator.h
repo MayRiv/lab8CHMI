@@ -30,7 +30,6 @@ private:
     double rightPartFunction(double x);
     double*methodGauss02(const double* pA,const double* pB,int n);
     double getAccurateValue(double x);
-    double derrivate(double (*f)(int,double),int j, double x);
     QVector<double> getC(QVector<double> x);
     QVector<double> solveGauss(QVector<double> A, QVector<double> B);
     Ui::Calculator *ui;

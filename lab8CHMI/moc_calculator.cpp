@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'calculator.h'
 **
-** Created: Mon Apr 8 15:33:45 2013
+** Created: Tue Apr 9 10:20:35 2013
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.1)
 **
 ** WARNING! All changes made in this file will be lost!
